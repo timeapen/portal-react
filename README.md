@@ -51,18 +51,39 @@ npm run preview
 
 ## Project Structure
 
+This project is organized as a monorepo using npm workspaces, allowing for better code organization and sharing between different applications and packages.
+
 ```
-src/
-├── assets/      # Static assets
-├── components/  # Reusable components
-├── layouts/     # Layout components
-├── pages/       # Page components
-├── hooks/       # Custom React hooks
-├── theme/       # Theme configuration
-├── utils/       # Utility functions
-├── App.tsx      # Main App component
-└── main.tsx     # Application entry point
+.
+├── apps/                  # Application directories
+│   └── main/             # Main portal application
+├── packages/             # Shared packages
+│   └── accounts/         # Account management package
+└── src/                  # Legacy source directory
+    ├── assets/          # Static assets
+    ├── components/      # Reusable components
+    ├── layouts/         # Layout components
+    ├── pages/          # Page components
+    ├── hooks/          # Custom React hooks
+    ├── theme/          # Theme configuration
+    ├── utils/          # Utility functions
+    ├── App.tsx         # Main App component
+    └── main.tsx        # Application entry point
 ```
+
+### Monorepo Structure
+
+- **apps/**: Contains individual applications that can be deployed independently
+  - `main/`: The main portal application
+  
+- **packages/**: Houses shared libraries and utilities used across applications
+  - `accounts/`: Shared account management functionality
+
+Each application and package has its own:
+- `package.json` for dependencies
+- TypeScript configuration
+- Build setup
+- Tests
 
 ## Technologies Used
 
