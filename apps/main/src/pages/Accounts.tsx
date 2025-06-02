@@ -1,6 +1,6 @@
 import { Box, Heading, Button, useDisclosure, VStack } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import AccountList from '../components/accounts/AccountList';
+import { AccountList } from '@portal/accounts';
 import { useCallback } from 'react';
 
 const sampleAccounts = [
