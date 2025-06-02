@@ -1,7 +1,7 @@
-import { Box, Heading, Button, useDisclosure, VStack } from '@chakra-ui/react';
+import React, { useCallback, useState, useEffect } from 'react';
+import { Box, Heading, Button, useDisclosure, VStack, Center, Spinner } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { AccountList } from '@portal/accounts';
-import { useCallback } from 'react';
 
 const sampleAccounts = [
   {
@@ -36,11 +36,38 @@ const sampleAccounts = [
 
 const Accounts = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [accounts, setAccounts] = useState<typeof sampleAccounts>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate API call with delay
+    const loadAccounts = async () => {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+      setAccounts(sampleAccounts);
+      setIsLoading(false);
+    };
+
+    loadAccounts();
+  }, []);
 
   const handleAccountClick = useCallback((accountId: number) => {
     console.log(`Account clicked: ${accountId}`);
     // You can add navigation or modal opening logic here
   }, []);
+
+  if (isLoading) {
+    return (
+      <Center py={12}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Center>
+    );
+  }
 
   return (
     <VStack spacing={6} align="stretch">
@@ -52,7 +79,7 @@ const Accounts = () => {
       </Box>
 
       <AccountList 
-        accounts={sampleAccounts}
+        accounts={accounts}
         onAccountClick={handleAccountClick}
       />
 
