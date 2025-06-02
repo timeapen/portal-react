@@ -1,13 +1,14 @@
 import { Box, Text, VStack, Badge, useColorModeValue } from '@chakra-ui/react';
 
-interface AccountCardProps {
+export interface AccountCardProps {
   accountName: string;
   accountType: string;
   balance: number;
   status: 'active' | 'inactive' | 'pending';
+  onClick?: () => void;
 }
 
-const AccountCard = ({ accountName, accountType, balance, status }: AccountCardProps) => {
+const AccountCard = ({ accountName, accountType, balance, status, onClick }: AccountCardProps) => {
   const bgColor = useColorModeValue('white', 'gray.700');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
 
@@ -32,8 +33,9 @@ const AccountCard = ({ accountName, accountType, balance, status }: AccountCardP
       border="1px"
       borderColor={borderColor}
       boxShadow="sm"
-      _hover={{ transform: 'translateY(-2px)', boxShadow: 'md' }}
+      _hover={{ transform: 'translateY(-2px)', boxShadow: 'md', cursor: onClick ? 'pointer' : 'default' }}
       transition="all 0.2s"
+      onClick={onClick}
     >
       <VStack align="stretch" spacing={3}>
         <Box display="flex" justifyContent="space-between" alignItems="center">

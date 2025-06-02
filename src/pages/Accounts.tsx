@@ -1,6 +1,7 @@
-import { Box, Grid, Heading, Button, useDisclosure, VStack } from '@chakra-ui/react';
+import { Box, Heading, Button, useDisclosure, VStack } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import AccountCard from '../components/AccountCard';
+import AccountList from '../components/accounts/AccountList';
+import { useCallback } from 'react';
 
 const sampleAccounts = [
   {
@@ -36,6 +37,11 @@ const sampleAccounts = [
 const Accounts = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleAccountClick = useCallback((accountId: number) => {
+    console.log(`Account clicked: ${accountId}`);
+    // You can add navigation or modal opening logic here
+  }, []);
+
   return (
     <VStack spacing={6} align="stretch">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -45,24 +51,10 @@ const Accounts = () => {
         </Button>
       </Box>
 
-      <Grid
-        templateColumns={{
-          base: '1fr',
-          md: 'repeat(2, 1fr)',
-          lg: 'repeat(3, 1fr)',
-        }}
-        gap={6}
-      >
-        {sampleAccounts.map((account) => (
-          <AccountCard
-            key={account.id}
-            accountName={account.accountName}
-            accountType={account.accountType}
-            balance={account.balance}
-            status={account.status}
-          />
-        ))}
-      </Grid>
+      <AccountList 
+        accounts={sampleAccounts}
+        onAccountClick={handleAccountClick}
+      />
 
       {/* Add Account Modal can be added here later */}
     </VStack>
